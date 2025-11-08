@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
   @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text('appBar'),),
-      body: Center(child: Text('body'),),
-      bottomNavigationBar: BottomAppBar(child: Text('bottomNavigationBar'),)
-    );
+    return const Text('홈 화면');
   }
 }
