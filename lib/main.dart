@@ -6,11 +6,12 @@ import 'package:sik_hoo_kyung/screen/splash_screen.dart';
 void main() {
   runApp(
     MaterialApp(
-      home: SplashScreen(),
-      routes: {
-        '/login': (context) => LoginScreen(),
-        '/main': (context) => MainScreen(),
-      },
+      home: MainScreen(),
+      // home: SplashScreen(),
+      // routes: {
+      //   '/login': (context) => LoginScreen(),
+      //   '/main': (context) => MainScreen(),
+      // },
     ),
   );
 }

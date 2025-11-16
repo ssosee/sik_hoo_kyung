@@ -29,7 +29,7 @@ class _CompleteWalkingSummaryScreenState
   // 더 강렬한 버전
   static Future<void> successHaptic() async {
     // 부르르르르 (빠른 연속)
-    for (int i = 0; i < 4; i++) {
+    for (int i = 0; i < 6; i++) {
       await HapticFeedback.mediumImpact();
       await Future.delayed(const Duration(milliseconds: 50));
     }
@@ -47,6 +47,8 @@ class _CompleteWalkingSummaryScreenState
     // 빰빰! (강력한 마무리 2연타)
     await HapticFeedback.heavyImpact();
     await Future.delayed(const Duration(milliseconds: 100));
+    await HapticFeedback.heavyImpact();
+    await Future.delayed(const Duration(milliseconds: 80));
     await HapticFeedback.heavyImpact();
   }
 
