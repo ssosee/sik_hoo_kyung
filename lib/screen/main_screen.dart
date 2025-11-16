@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:sik_hoo_kyung/screen/home_screen.dart';
 import 'package:sik_hoo_kyung/screen/setting_screen.dart';
 
-import 'history_screen.dart';
 import 'main_bottom_navigation_bar.dart';
 
 class MainScreen extends StatefulWidget {
@@ -19,6 +19,7 @@ class _MainScreen extends State<MainScreen> {
   void selectBottomNavigationBar(int index) {
     setState(() {
       selectedBottomNavigationIndex = index;
+      HapticFeedback.selectionClick();
     });
   }
 
@@ -30,7 +31,7 @@ class _MainScreen extends State<MainScreen> {
         index: selectedBottomNavigationIndex,
         children: [
           Center(child: HomeScreen()),
-          Center(child: HistoryScreen()),
+          // Center(child: HistoryScreen()),
           Center(child: SettingScreen()),
         ],
       ),

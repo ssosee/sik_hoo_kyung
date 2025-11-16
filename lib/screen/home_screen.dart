@@ -1,8 +1,11 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:lottie/lottie.dart';
+import 'package:sik_hoo_kyung/component/bottom_button.dart';
 import 'package:sik_hoo_kyung/screen/complete_walking_summary_screen.dart';
+import 'package:sik_hoo_kyung/screen/popup_screen.dart';
 import 'package:sik_hoo_kyung/utils/time_provider.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -12,20 +15,41 @@ class HomeScreen extends StatefulWidget {
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _HomeScreenState extends State<HomeScreen>
+    with SingleTickerProviderStateMixin {
   String buttonText = '산책하기';
   String assetsAnimation = 'assets/animations/beautiful-city.json';
   bool isWalking = false;
   int seconds = 0;
   Timer? timer;
+  late AnimationController _lottiController;
+  bool _isLottieLoaded = false; // 추가: Lottie 로드 완료 여부
 
-  void onWalk() async {
-    if (isWalking) {
+  @override
+  void initState() {
+    super.initState();
+    _lottiController = AnimationController(vsync: this);
+  }
+
+  Future<void> _showCompleteWalkingBottomSheet() async {
+    HapticFeedback.mediumImpact();
+
+    _lottiController.stop();
+
+    final result = await showModalBottomSheet<bool>(
+      context: context,
+      backgroundColor: Colors.transparent,
+      builder: (context) {
+        return PopupScreen(seconds: seconds);
+      },
+    );
+    // 사용자가 완료를 선택한 경우에만 화면 전환
+    if (result == true) {
       setState(() {
-        // 산책 종료
         buttonText = '산책하기';
         assetsAnimation = 'assets/animations/beautiful-city.json';
         isWalking = false;
+        _isLottieLoaded = false;
         timer?.cancel();
       });
 
@@ -41,24 +65,46 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       );
     } else {
+      // 취소한 경우 타이머 재시작
+      if (isWalking) {
+        _startTimer();
+        _lottiController.repeat();
+      }
+    }
+  }
+
+  void onWalk() async {
+    if (isWalking) {
+      timer?.cancel();
+      // 바텀 시트 표시
+      await _showCompleteWalkingBottomSheet();
+    } else {
       // 산책 시작
       setState(() {
         buttonText = '산책 끝';
         assetsAnimation = 'assets/animations/walking-man.json';
         isWalking = true;
         seconds = 0;
-        timer = Timer.periodic(Duration(seconds: 1), (timer) {
-          setState(() {
-            seconds++;
-          });
-        });
+        _isLottieLoaded = false;
       });
+      _startTimer();
     }
+  }
+
+  // 타이머 시작
+  void _startTimer() {
+    timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      setState(() {
+        seconds++;
+      });
+    });
   }
 
   @override
   void dispose() {
+    _lottiController.dispose();
     timer?.cancel();
+    timer = null;
     super.dispose();
   }
 
@@ -84,6 +130,14 @@ class _HomeScreenState extends State<HomeScreen> {
               child: isWalking
                   ? Lottie.asset(
                       assetsAnimation,
+                      controller: _lottiController,
+                      onLoaded: (composition) {
+                        _lottiController.duration = composition.duration;
+                        _isLottieLoaded = true;
+                        if (isWalking) {
+                          _lottiController.repeat();
+                        }
+                      },
                       key: const ValueKey('first'),
                       width: 260,
                       height: 260,
@@ -114,17 +168,15 @@ class _HomeScreenState extends State<HomeScreen> {
                       style: TextStyle(
                         fontSize: 40,
                         fontWeight: FontWeight.bold,
+                        color: Colors.green,
                       ),
                     ),
                   ),
-                ElevatedButton(
-                  onPressed: onWalk,
-                  style: ButtonStyle(
-                    minimumSize: WidgetStateProperty.all(
-                      Size(double.infinity, 50),
-                    ),
-                  ),
-                  child: Text(buttonText, style: TextStyle(fontSize: 30)),
+                BottomButton(
+                  onClick: onWalk,
+                  buttonText: buttonText,
+                  backgroundColor: Colors.greenAccent,
+                  foregroundColor: Colors.black87,
                 ),
               ],
             ),
@@ -134,3 +186,5 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 }
+
+// tamtaneng

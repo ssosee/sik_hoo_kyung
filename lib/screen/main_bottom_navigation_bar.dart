@@ -15,21 +15,21 @@ class MainBottomNavigationBar extends StatelessWidget {
     return NavigationBar(
       onDestinationSelected: onDestinationSelected,
       selectedIndex: selectedBottomNavigationIndex,
-      indicatorColor: Colors.cyan,
+      indicatorColor: Colors.greenAccent,
       destinations: [
         NavigationDestination(
-          selectedIcon: Icon(Icons.home),
-          icon: Icon(Icons.home_outlined),
+          selectedIcon: Icon(Icons.home, size: 35),
+          icon: Icon(Icons.home_outlined, size: 30),
           label: "홈",
         ),
+        // NavigationDestination(
+        //   selectedIcon: Icon(Icons.directions_walk),
+        //   icon: Icon(Icons.directions_walk_outlined),
+        //   label: "기록",
+        // ),
         NavigationDestination(
-          selectedIcon: Icon(Icons.directions_walk),
-          icon: Icon(Icons.directions_walk_outlined),
-          label: "기록",
-        ),
-        NavigationDestination(
-          selectedIcon: Icon(Icons.settings),
-          icon: Icon(Icons.settings_outlined),
+          selectedIcon: Icon(Icons.settings, size: 35),
+          icon: Icon(Icons.settings_outlined, size: 30),
           label: "설정",
         ),
       ],

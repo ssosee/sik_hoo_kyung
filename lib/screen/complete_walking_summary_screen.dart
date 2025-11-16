@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:lottie/lottie.dart';
+import 'package:sik_hoo_kyung/component/bottom_button.dart';
 import 'package:sik_hoo_kyung/utils/time_provider.dart';
 
 class CompleteWalkingSummaryScreen extends StatefulWidget {
@@ -16,11 +18,17 @@ class CompleteWalkingSummaryScreen extends StatefulWidget {
 class _CompleteWalkingSummaryScreenState
     extends State<CompleteWalkingSummaryScreen> {
   @override
+  void initState() {
+    super.initState();
+    HapticFeedback.vibrate();
+  }
+
+  @override
   Widget build(BuildContext context) {
     // 시간 기반 추정값
     double estimatedDistance =
         (widget.completeSecond / 60) * 0.08; // 시속 4.8km 가정
-    int estimatedSteps = (widget.completeSecond * 1.5).round(); // 초당 1.5걸음 가정
+    int estimatedSteps = (widget.completeSecond * 1.45).round(); // 초당 1.5걸음 가정
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -201,26 +209,13 @@ class _CompleteWalkingSummaryScreenState
               child: Container(
                 alignment: Alignment.center,
                 padding: EdgeInsets.symmetric(horizontal: 40),
-                child: ElevatedButton(
-                  onPressed: () {
+                child: BottomButton(
+                  onClick: () {
                     Navigator.pop(context);
                   },
-                  style: ButtonStyle(
-                    minimumSize: WidgetStateProperty.all(
-                      Size(double.infinity, 50),
-                    ),
-                    backgroundColor: WidgetStateProperty.all(Colors.orange),
-                    foregroundColor: WidgetStateProperty.all(Colors.black87),
-                    shape: WidgetStateProperty.all(
-                      RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                    ),
-                  ),
-                  child: Text(
-                    '완료',
-                    style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
-                  ),
+                  buttonText: '완료',
+                  backgroundColor: Colors.orange,
+                  foregroundColor: Colors.white,
                 ),
               ),
             ),

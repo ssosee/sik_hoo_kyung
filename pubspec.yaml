@@ -33,6 +33,8 @@ dependencies:
   lottie: ^3.3.2
   rive: ^0.13.20
   intl: ^0.20.2
+  pedometer: ^4.1.1
+  permission_handler: ^12.0.1
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.

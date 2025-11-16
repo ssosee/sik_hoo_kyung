@@ -10,6 +10,6 @@ class HistoryScreen extends StatefulWidget {
 class _HistoryScreenState extends State<HistoryScreen> {
   @override
   Widget build(BuildContext context) {
-    return const Text('기록 화면');
+    return const Text('아직 준비중 이에요');
   }
 }
