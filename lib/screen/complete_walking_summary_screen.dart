@@ -21,9 +21,7 @@ class _CompleteWalkingSummaryScreenState
   void initState() {
     super.initState();
 
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      // 진동 강도가 좀 더 확실한 타입으로 테스트
-      // HapticFeedback.mediumImpact();
+    Future.delayed(const Duration(milliseconds: 100), () {
       HapticFeedback.heavyImpact();
     });
   }
@@ -79,7 +77,7 @@ class _CompleteWalkingSummaryScreenState
                             Text(
                               '⏰ 산책시간',
                               style: TextStyle(
-                                fontSize: 25,
+                                fontSize: 24,
                                 color: Colors.grey[600],
                                 fontWeight: FontWeight.w500,
                               ),
@@ -96,7 +94,7 @@ class _CompleteWalkingSummaryScreenState
                                 return Text(
                                   TimeProvider.formatTime(value),
                                   style: TextStyle(
-                                    fontSize: 45,
+                                    fontSize: 33,
                                     fontWeight: FontWeight.bold,
                                     color: Colors.black87,
                                   ),
@@ -210,12 +208,13 @@ class _CompleteWalkingSummaryScreenState
 
             // 완료 버튼 영역
             Expanded(
-              flex: 1,
+              flex: 2,
               child: Container(
                 alignment: Alignment.center,
                 padding: EdgeInsets.symmetric(horizontal: 40),
                 child: BottomButton(
                   onClick: () {
+                    HapticFeedback.mediumImpact();
                     Navigator.pop(context);
                   },
                   buttonText: '완료',

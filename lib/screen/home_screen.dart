@@ -69,8 +69,6 @@ class _HomeScreenState extends State<HomeScreen>
   }
 
   Future<void> _showCompleteWalkingBottomSheet() async {
-    HapticFeedback.mediumImpact();
-
     _lottiController.stop();
 
     final result = await showModalBottomSheet<bool>(
@@ -116,6 +114,7 @@ class _HomeScreenState extends State<HomeScreen>
       await _showCompleteWalkingBottomSheet();
     } else {
       // 산책 시작
+      HapticFeedback.mediumImpact();
       setState(() {
         buttonText = '산책 끝';
         assetsAnimation = 'assets/animations/walking-man.json';
