@@ -16,19 +16,56 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen>
-    with SingleTickerProviderStateMixin {
+    with SingleTickerProviderStateMixin, WidgetsBindingObserver {
   String buttonText = '산책하기';
   String assetsAnimation = 'assets/animations/beautiful-city.json';
   bool isWalking = false;
   int seconds = 0;
   Timer? timer;
   late AnimationController _lottiController;
-  bool _isLottieLoaded = false; // 추가: Lottie 로드 완료 여부
+  bool _isLottieLoaded = false;
+
+  // 추가: 산책 시작 시간 저장
+  DateTime? _walkingStartTime;
 
   @override
   void initState() {
     super.initState();
     _lottiController = AnimationController(vsync: this);
+    // 앱 생명주기 관찰자 등록
+    WidgetsBinding.instance.addObserver(this);
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    _lottiController.dispose();
+    timer?.cancel();
+    timer = null;
+    super.dispose();
+  }
+
+  // 앱 생명주기 변경 감지
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    super.didChangeAppLifecycleState(state);
+
+    if (state == AppLifecycleState.resumed &&
+        isWalking &&
+        _walkingStartTime != null) {
+      // 앱이 다시 활성화되면 경과 시간 재계산
+      _updateElapsedTime();
+    }
+  }
+
+  // 경과 시간 업데이트
+  void _updateElapsedTime() {
+    if (_walkingStartTime != null) {
+      final elapsed = DateTime.now().difference(_walkingStartTime!);
+      setState(() {
+        seconds = elapsed.inSeconds;
+      });
+    }
   }
 
   Future<void> _showCompleteWalkingBottomSheet() async {
@@ -43,7 +80,7 @@ class _HomeScreenState extends State<HomeScreen>
         return PopupScreen(seconds: seconds);
       },
     );
-    // 사용자가 완료를 선택한 경우에만 화면 전환
+
     if (result == true) {
       setState(() {
         buttonText = '산책하기';
@@ -55,8 +92,8 @@ class _HomeScreenState extends State<HomeScreen>
 
       final completeSecond = seconds;
       seconds = 0;
+      _walkingStartTime = null; // 시작 시간 초기화
 
-      // 산책 완료 화면
       await Navigator.push(
         context,
         MaterialPageRoute(
@@ -65,7 +102,6 @@ class _HomeScreenState extends State<HomeScreen>
         ),
       );
     } else {
-      // 취소한 경우 타이머 재시작
       if (isWalking) {
         _startTimer();
         _lottiController.repeat();
@@ -77,7 +113,6 @@ class _HomeScreenState extends State<HomeScreen>
     if (isWalking) {
       HapticFeedback.mediumImpact();
       timer?.cancel();
-      // 바텀 시트 표시
       await _showCompleteWalkingBottomSheet();
     } else {
       // 산책 시작
@@ -87,26 +122,17 @@ class _HomeScreenState extends State<HomeScreen>
         isWalking = true;
         seconds = 0;
         _isLottieLoaded = false;
+        _walkingStartTime = DateTime.now(); // 시작 시간 저장
       });
       _startTimer();
     }
   }
 
-  // 타이머 시작
+  // 타이머 시작 (UI 업데이트용)
   void _startTimer() {
     timer = Timer.periodic(const Duration(seconds: 1), (timer) {
-      setState(() {
-        seconds++;
-      });
+      _updateElapsedTime();
     });
-  }
-
-  @override
-  void dispose() {
-    _lottiController.dispose();
-    timer?.cancel();
-    timer = null;
-    super.dispose();
   }
 
   @override
@@ -122,7 +148,6 @@ class _HomeScreenState extends State<HomeScreen>
             child: AnimatedSwitcher(
               duration: const Duration(milliseconds: 700),
               transitionBuilder: (Widget child, Animation<double> animation) {
-                // 줌인 + 페이드 효과
                 return ScaleTransition(
                   scale: animation,
                   child: FadeTransition(opacity: animation, child: child),
@@ -157,7 +182,7 @@ class _HomeScreenState extends State<HomeScreen>
           flex: 1,
           child: Container(
             alignment: Alignment.center,
-            padding: EdgeInsets.symmetric(horizontal: 40),
+            padding: const EdgeInsets.symmetric(horizontal: 40),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -169,7 +194,7 @@ class _HomeScreenState extends State<HomeScreen>
                     ),
                     child: Text(
                       TimeProvider.formatTime(seconds),
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 33,
                         fontWeight: FontWeight.bold,
                         color: Colors.green,
@@ -190,5 +215,3 @@ class _HomeScreenState extends State<HomeScreen>
     );
   }
 }
-
-// tamtaneng
