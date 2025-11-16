@@ -75,6 +75,7 @@ class _HomeScreenState extends State<HomeScreen>
 
   void onWalk() async {
     if (isWalking) {
+      HapticFeedback.mediumImpact();
       timer?.cancel();
       // 바텀 시트 표시
       await _showCompleteWalkingBottomSheet();
@@ -162,11 +163,14 @@ class _HomeScreenState extends State<HomeScreen>
               children: [
                 if (isWalking)
                   Padding(
-                    padding: const EdgeInsets.only(bottom: 16.0),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 16.0,
+                      vertical: 5,
+                    ),
                     child: Text(
                       TimeProvider.formatTime(seconds),
                       style: TextStyle(
-                        fontSize: 40,
+                        fontSize: 33,
                         fontWeight: FontWeight.bold,
                         color: Colors.green,
                       ),

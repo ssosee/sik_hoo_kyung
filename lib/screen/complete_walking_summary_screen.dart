@@ -20,7 +20,12 @@ class _CompleteWalkingSummaryScreenState
   @override
   void initState() {
     super.initState();
-    HapticFeedback.vibrate();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      // 진동 강도가 좀 더 확실한 타입으로 테스트
+      // HapticFeedback.mediumImpact();
+      HapticFeedback.heavyImpact();
+    });
   }
 
   @override
@@ -53,7 +58,7 @@ class _CompleteWalkingSummaryScreenState
 
             // 산책 정보 영역
             Expanded(
-              flex: 3,
+              flex: 4,
               child: Container(
                 padding: EdgeInsets.symmetric(horizontal: 40),
                 child: Column(
@@ -91,7 +96,7 @@ class _CompleteWalkingSummaryScreenState
                                 return Text(
                                   TimeProvider.formatTime(value),
                                   style: TextStyle(
-                                    fontSize: 48,
+                                    fontSize: 45,
                                     fontWeight: FontWeight.bold,
                                     color: Colors.black87,
                                   ),
@@ -140,7 +145,7 @@ class _CompleteWalkingSummaryScreenState
                                       return Text(
                                         '${value.toStringAsFixed(2)} km',
                                         style: TextStyle(
-                                          fontSize: 24,
+                                          fontSize: 21,
                                           fontWeight: FontWeight.bold,
                                           color: Colors.black87,
                                         ),
