@@ -84,12 +84,6 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-    - assets/animations/home-hello.json
-    - assets/animations/yes.json
-    - assets/animations/happy-dog.riv
-    - assets/animations/idle-dog.json
-    - assets/images/idle-dog.png
-    - assets/animations/walking-dog.json
     - assets/animations/walking-man.json
     - assets/animations/beautiful-city.json
     - assets/animations/confetti.json
