@@ -22,8 +22,32 @@ class _CompleteWalkingSummaryScreenState
     super.initState();
 
     Future.delayed(const Duration(milliseconds: 100), () {
-      HapticFeedback.heavyImpact();
+      successHaptic();
     });
+  }
+
+  // 더 강렬한 버전
+  static Future<void> successHaptic() async {
+    // 부르르르르 (빠른 연속)
+    for (int i = 0; i < 4; i++) {
+      await HapticFeedback.mediumImpact();
+      await Future.delayed(const Duration(milliseconds: 50));
+    }
+
+    await Future.delayed(const Duration(milliseconds: 150));
+
+    // 부르르르르 (한번 더)
+    for (int i = 0; i < 4; i++) {
+      await HapticFeedback.mediumImpact();
+      await Future.delayed(const Duration(milliseconds: 50));
+    }
+
+    await Future.delayed(const Duration(milliseconds: 150));
+
+    // 빰빰! (강력한 마무리 2연타)
+    await HapticFeedback.heavyImpact();
+    await Future.delayed(const Duration(milliseconds: 100));
+    await HapticFeedback.heavyImpact();
   }
 
   @override
