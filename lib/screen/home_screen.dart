@@ -196,7 +196,7 @@ class _HomeScreenState extends State<HomeScreen>
                       style: const TextStyle(
                         fontSize: 33,
                         fontWeight: FontWeight.bold,
-                        color: Colors.green,
+                        color: Color.fromARGB(255, 40, 55, 120),
                       ),
                     ),
                   ),

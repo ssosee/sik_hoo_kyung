@@ -29,15 +29,15 @@ class _CompleteWalkingSummaryScreenState
   // 더 강렬한 버전
   static Future<void> successHaptic() async {
     // 부르르르르 (빠른 연속)
-    for (int i = 0; i < 6; i++) {
+    for (int i = 0; i < 7; i++) {
       await HapticFeedback.mediumImpact();
-      await Future.delayed(const Duration(milliseconds: 50));
+      await Future.delayed(const Duration(milliseconds: 60));
     }
 
     await Future.delayed(const Duration(milliseconds: 150));
 
     // 부르르르르 (한번 더)
-    for (int i = 0; i < 4; i++) {
+    for (int i = 0; i < 5; i++) {
       await HapticFeedback.mediumImpact();
       await Future.delayed(const Duration(milliseconds: 50));
     }
@@ -94,8 +94,22 @@ class _CompleteWalkingSummaryScreenState
                         width: double.infinity,
                         padding: EdgeInsets.all(20),
                         decoration: BoxDecoration(
-                          color: Colors.greenAccent,
+                          color: Color.fromARGB(255, 61, 210, 249),
                           borderRadius: BorderRadius.circular(16),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withOpacity(0.15),
+                              spreadRadius: 0,
+                              blurRadius: 20,
+                              offset: Offset(0, 10),
+                            ),
+                            BoxShadow(
+                              color: Colors.black.withOpacity(0.1),
+                              spreadRadius: 0,
+                              blurRadius: 10,
+                              offset: Offset(0, 5),
+                            ),
+                          ],
                         ),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -104,7 +118,7 @@ class _CompleteWalkingSummaryScreenState
                               '⏰ 산책시간',
                               style: TextStyle(
                                 fontSize: 24,
-                                color: Colors.grey[600],
+                                color: Color.fromARGB(255, 40, 55, 120),
                                 fontWeight: FontWeight.w500,
                               ),
                             ),
@@ -143,8 +157,22 @@ class _CompleteWalkingSummaryScreenState
                             child: Container(
                               padding: EdgeInsets.all(20),
                               decoration: BoxDecoration(
-                                color: Colors.yellow,
+                                color: Color.fromARGB(255, 255, 180, 0),
                                 borderRadius: BorderRadius.circular(16),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.black.withOpacity(0.15),
+                                    spreadRadius: 0,
+                                    blurRadius: 20,
+                                    offset: Offset(0, 10),
+                                  ),
+                                  BoxShadow(
+                                    color: Colors.black.withOpacity(0.1),
+                                    spreadRadius: 0,
+                                    blurRadius: 10,
+                                    offset: Offset(0, 5),
+                                  ),
+                                ],
                               ),
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
@@ -153,7 +181,7 @@ class _CompleteWalkingSummaryScreenState
                                     '🔥 거리',
                                     style: TextStyle(
                                       fontSize: 20,
-                                      color: Colors.grey[600],
+                                      color: Color.fromARGB(255, 40, 55, 120),
                                       fontWeight: FontWeight.w500,
                                     ),
                                   ),
@@ -187,17 +215,31 @@ class _CompleteWalkingSummaryScreenState
                             child: Container(
                               padding: EdgeInsets.all(20),
                               decoration: BoxDecoration(
-                                color: Color.fromARGB(243, 135, 243, 255),
+                                color: Color.fromARGB(255, 188, 141, 252),
                                 borderRadius: BorderRadius.circular(16),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.black.withOpacity(0.15),
+                                    spreadRadius: 0,
+                                    blurRadius: 20,
+                                    offset: Offset(0, 10),
+                                  ),
+                                  BoxShadow(
+                                    color: Colors.black.withOpacity(0.1),
+                                    spreadRadius: 0,
+                                    blurRadius: 10,
+                                    offset: Offset(0, 5),
+                                  ),
+                                ],
                               ),
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Text(
-                                    '🐾 걸음수',
+                                    '👠 걸음수',
                                     style: TextStyle(
                                       fontSize: 20,
-                                      color: Colors.grey[600],
+                                      color: Color.fromARGB(255, 40, 55, 120),
                                       fontWeight: FontWeight.w500,
                                     ),
                                   ),
@@ -243,9 +285,9 @@ class _CompleteWalkingSummaryScreenState
                     HapticFeedback.mediumImpact();
                     Navigator.pop(context);
                   },
-                  buttonText: '완료',
-                  backgroundColor: Colors.orange,
-                  foregroundColor: Colors.white,
+                  buttonText: '대박!',
+                  backgroundColor: Colors.greenAccent,
+                  foregroundColor: Colors.black87,
                 ),
               ),
             ),

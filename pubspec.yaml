@@ -35,6 +35,8 @@ dependencies:
   intl: ^0.20.2
   pedometer: ^4.1.1
   permission_handler: ^12.0.1
+  url_launcher: ^6.3.2
+  in_app_review: ^2.0.11
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.

@@ -18,8 +18,8 @@ class MainBottomNavigationBar extends StatelessWidget {
       indicatorColor: Colors.greenAccent,
       destinations: [
         NavigationDestination(
-          selectedIcon: Icon(Icons.home, size: 35),
-          icon: Icon(Icons.home_outlined, size: 30),
+          selectedIcon: Icon(Icons.home, size: 25),
+          icon: Icon(Icons.home_outlined, size: 22),
           label: "홈",
         ),
         // NavigationDestination(
@@ -28,8 +28,8 @@ class MainBottomNavigationBar extends StatelessWidget {
         //   label: "기록",
         // ),
         NavigationDestination(
-          selectedIcon: Icon(Icons.settings, size: 35),
-          icon: Icon(Icons.settings_outlined, size: 30),
+          selectedIcon: Icon(Icons.settings, size: 25),
+          icon: Icon(Icons.settings_outlined, size: 22),
           label: "설정",
         ),
       ],
