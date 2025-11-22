@@ -83,12 +83,12 @@ class _SettingScreenState extends State<SettingScreen> {
           trailing: const Icon(Icons.arrow_forward_ios, size: 16),
           onTap: _requestReview,
         ),
-        ListTile(
-          leading: const Icon(Icons.coffee),
-          title: const Text('개발자 응원하기'),
-          trailing: const Icon(Icons.arrow_forward_ios, size: 16),
-          onTap: _openSupportLink,
-        ),
+        // ListTile(
+        //   leading: const Icon(Icons.coffee),
+        //   title: const Text('개발자 응원하기 🤗'),
+        //   trailing: const Icon(Icons.arrow_forward_ios, size: 16),
+        //   onTap: _openSupportLink,
+        // ),
         const Divider(height: 1),
         ListTile(
           leading: const Icon(Icons.info_outline),

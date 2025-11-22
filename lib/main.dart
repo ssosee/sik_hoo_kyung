@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:sik_hoo_kyung/screen/login_screen.dart';
 import 'package:sik_hoo_kyung/screen/main_screen.dart';
-import 'package:sik_hoo_kyung/screen/splash_screen.dart';
 
 void main() {
   runApp(
     MaterialApp(
+      debugShowCheckedModeBanner: false, // debug 배너 제거
       home: MainScreen(),
       // home: SplashScreen(),
       // routes: {
